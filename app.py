@@ -14,6 +14,10 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+@app.on_event("startup")
+async def startup_event():
+    from seed_data import seed
+    seed()
 @app.post("/login/")
 def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
     user = db.query(User).filter(User.username == form_data.username).first()
