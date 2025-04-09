@@ -15,7 +15,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.route('/')
+@app.get('/')
 def index():
     return render_template('index.html')
 
