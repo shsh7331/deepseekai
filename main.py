@@ -3,6 +3,22 @@ from sqlalchemy.orm import Session
 from models import Base, User, Category, Expense
 from database import engine, SessionLocal
 import schemas
+from fastapi.security import OAuth2PasswordRequestForm
+from fastapi.middleware.cors import CORSMiddleware
+# Allow frontend to make requests
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Use specific origin in production
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+@app.post("/login/")
+def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
+    user = db.query(User).filter(User.username == form_data.username).first()
+    if not user or user.password != form_data.password:  # In production, use hashed passwords
+        raise HTTPException(status_code=401, detail="Invalid credentials")
+    return {"message": "Login successful", "user_id": user.id}
 app = FastAPI()
 Base.metadata.create_all(bind=engine)
 def get_db():
