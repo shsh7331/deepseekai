@@ -15,6 +15,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+@app.middleware("http")
+async def my_middleware(request, call_next):
+    response = await call_next(request)
+    return response
+
 Base.metadata.create_all(bind=engine)
 def get_db():
     db = SessionLocal()
