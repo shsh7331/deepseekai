@@ -17,7 +17,7 @@ app.add_middleware(
 
 @app.get("/")
 async def root():
-    return {"message": "Welcome to the Expense Tracker API!"
+    return {"message": "Welcome to the Expense Tracker API!"}
 
 @app.middleware("http")
 async def my_middleware(request, call_next):
