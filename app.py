@@ -17,7 +17,7 @@ app.add_middleware(
 
 @app.get('/')
 def index():
-    return render_template('index.html')
+    return index.html
 
 @app.middleware("http")
 async def my_middleware(request, call_next):
