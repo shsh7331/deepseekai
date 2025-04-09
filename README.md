@@ -1,0 +1,2 @@
+# deepseekai
+Finance Management System
