@@ -5,6 +5,7 @@ from database import engine, SessionLocal
 import schemas
 from fastapi.security import OAuth2PasswordRequestForm
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import HTMLResponse
 # Allow frontend to make requests
 app = FastAPI()
 app.add_middleware(
