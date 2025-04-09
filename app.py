@@ -6,6 +6,7 @@ import schemas
 from fastapi.security import OAuth2PasswordRequestForm
 from fastapi.middleware.cors import CORSMiddleware
 # Allow frontend to make requests
+app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],  # Use specific origin in production
@@ -19,7 +20,7 @@ def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depend
     if not user or user.password != form_data.password:  # In production, use hashed passwords
         raise HTTPException(status_code=401, detail="Invalid credentials")
     return {"message": "Login successful", "user_id": user.id}
-app = FastAPI()
+
 Base.metadata.create_all(bind=engine)
 def get_db():
     db = SessionLocal()
