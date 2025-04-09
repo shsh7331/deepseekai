@@ -15,9 +15,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.get('/')
-def index():
-    return index.html
+@app.get("/", response_class=HTMLResponse)
+async def read_index():
+    with open("index.html", "r") as f:
+        html_content = f.read()
+    return HTMLResponse(content=html_content)
 
 @app.middleware("http")
 async def my_middleware(request, call_next):
